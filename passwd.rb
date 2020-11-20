@@ -4,7 +4,6 @@
 # Set a password for user. If password not given sets a random 64 character one
 
 require 'optparse'
-require 'securerandom'
 
 require_relative 'lib/common'
 

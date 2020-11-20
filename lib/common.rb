@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+
 require_relative '../config'
 require_relative 'password'
 require_relative 'database'
