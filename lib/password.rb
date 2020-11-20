@@ -4,6 +4,8 @@ require 'securerandom'
 require 'digest'
 require 'base64'
 
+RANDOM_PASSWORD_LENGTH = 64
+
 # Dovecot compatible password generation helper
 class Password
   def initialize(password, salt = nil)
