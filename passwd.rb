@@ -19,7 +19,8 @@ OptionParser.new do |opts|
   opts.on('-e', '--email email', 'User email to change password for') do |email|
     @options[:email] = email
   end
-  opts.on('-p', '--password password', 'Password to set for the user, leave blank for random') do |p|
+  opts.on('-p', '--password password', 'Password to set for the user, leave blank for random, ' \
+                                       '"-" to read from stdin') do |p|
     @options[:password] = p
   end
 end.parse!
