@@ -6,7 +6,7 @@
 require 'optparse'
 require 'securerandom'
 
-require_relative 'lib/password'
+require_relative 'lib/common'
 
 @options = {
   email: nil,
@@ -24,21 +24,22 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-abort "Unhandled parameters: #{ARGV}" unless ARGV.empty?
+check_params
 
 abort 'Must specify target email' unless @options[:email]
 
-@random_password = false
-
-unless @options[:password]
-  @options[:password] = SecureRandom.alphanumeric(RANDOM_PASSWORD_LENGTH)
-  @random_password = true
-end
+handle_password_option
 
 puts "Changing password for: #{@options[:email]}"
 
-# TODO: actually change password
+@password = Password.new(@options[:password])
 
-puts "Generated random password: #{@options[:password]}" if @random_password
+@db = create_db
+
+abort 'Failed to update password in DB' unless @db.update_password(
+  @options[:email], @password.dovecot_entry
+)
+
+print_password_if_needed
 
 puts 'Password changed'
